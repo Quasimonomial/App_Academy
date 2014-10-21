@@ -2,7 +2,7 @@ require_relative 'quoradb.rb'
 
 class User
   def self.all
-    results = QuoraDatabse.instance.excute('SELECT * FROM users')
+    results = QuoraDatabase.instance.execute('SELECT * FROM users')
     results.map { |result| User.new(result) }
   end
     
