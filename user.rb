@@ -16,6 +16,18 @@ class User
     #results["id"] = results["id"].to_i
     User.new(results[0])
   end
+  
+  def self.find_by_name fname, lname
+    params = [fname, lname]
+    results = QuoraDatabase.instance.execute(<<-SQL, *params)
+      SELECT *
+      FROM users
+      WHERE 
+        fname = (?) AND lname = (?)
+    SQL
+    return results
+  end
+  
     
   attr_accessor :id, :fname, :lname
   
@@ -23,6 +35,14 @@ class User
     @id = user_hash['id']
     @fname = user_hash['fname']
     @lname = user_hash['lname']
+  end
+  
+  def authored_questions
+    Question.find_by_author_id(id)
+  end
+  
+  def authored_replies
+    Replies.find_by_user_id(id)    
   end
   
   def create
@@ -42,7 +62,6 @@ class User
   
 end
 
-bob = User.new({'fname' => 'bob', 'lname' => 'the slob'})
- bob.create
-p User.all
-p User.find_by_id(1)
+bob = User.find_by_id(1)
+
+p bob.authored_replies

@@ -17,6 +17,16 @@ class Question
     Question.new(results[0])
   end
     
+  def self.find_by_author_id(author_id)
+    results = QuoraDatabase.instance.execute(<<-SQL, author_id)
+    SELECT *
+    FROM question
+    WHERE author_id = (?)
+    
+    SQL
+    results.map { |result| Question.new(result) }
+  end
+  
   attr_accessor :id, :title, :body, :author_id
   
   def initialize(question_hash = {})
@@ -41,6 +51,15 @@ class Question
     @id = QuoraDatabase.instance.last_insert_row_id
   end
   
+  
+  def author
+    User.find_by_id(author_id)
+  end
+  
+  def replies
+    Reply.find_by_question_id(id)
+  end
+    
 end
 
 question = Question.new({'title' => 'DOes this work???', 'body' => 'I need to know.', 'author_id' => 4})

@@ -17,6 +17,28 @@ class Reply
     Reply.new(results[0])
   end
   
+  def self.find_by_question_id(question_id)
+    results = QuoraDatabase.instance.execute(<<-SQL, question_id)
+    SELECT *
+    FROM replies
+    WHERE question_id = (?)
+    
+    SQL
+    
+    results.map { |result| Reply.new(result) }
+  end
+  
+  def self.find_by_user_id(user_id)
+    results = QuoraDatabase.instance.execute(<<-SQL, user_id)
+    SELECT *
+    FROM replies
+    WHERE user_id = (?)
+    
+    SQL
+    
+    results.map { |result| Reply.new(result) }
+  end
+  
   attr_accessor :reply_id, :question_id, :parent_id, :body, :author_id
   
   def initialize(reply_hash = {})
@@ -25,6 +47,20 @@ class Reply
     @parent_id = reply_hash['parent_id']
     @body = reply_hash['body']
     @author_id = reply_hash['author_id']
+  end
+  
+  def author
+    User.find_by_id(author_id)
+  end
+  
+  def child_replies
+    result = QuoraDatabase.instance.execute(<<-SQL, reply_id)
+    SELECT *
+    FROM replies
+    WHERE
+      parent_id = (?)
+    SQL
+    results.map { |result| Reply.new(result) }
   end
   
   def create
@@ -40,6 +76,15 @@ class Reply
     SQL
     @reply_id = QuoraDatabase.instance.last_insert_row_id
   end
+  
+  def parent_reply
+    Reply.find_by_id(parent_id)
+  end
+  
+  def question
+    Question.find_by_id(question_id)
+  end
+  
   
 end
 
