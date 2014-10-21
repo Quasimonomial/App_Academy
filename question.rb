@@ -56,6 +56,10 @@ class Question
     User.find_by_id(author_id)
   end
   
+  def followers
+    QuestionFollower.followers_for_question_id(id)
+  end
+  
   def replies
     Reply.find_by_question_id(id)
   end
