@@ -33,4 +33,5 @@ end
 
 bob = User.new({'fname' => 'bob', 'lname' => 'the slob'})
 bob.create
+bob.create
 p User.all

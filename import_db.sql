@@ -16,8 +16,12 @@ CREATE TABLE question_followers (
   question_id INTEGER NOT NULL,
   follower_id INTEGER NOT NULL,
   FOREIGN KEY (question_id) REFERENCES questions(id),
-  FOREIGN KEY (follower_id) INTEGER REFERENCES users(id)/*DOES THIS NEED TO BE A FOREIGN KEY TO USERS? */
+  FOREIGN KEY (follower_id)  REFERENCES users(id)
 );
+
+/*CREATE TABLE question_followers (
+  /*
+);*/
   
 
 CREATE TABLE replies (
@@ -32,9 +36,9 @@ CREATE TABLE replies (
 );
 
 CREATE TABLE question_likes (
-  user_id INTEGER 
-  question_id INTEGER
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  user_id INTEGER, 
+  question_id INTEGER,
+  FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (question_id) REFERENCES questions(id)
 );
 
