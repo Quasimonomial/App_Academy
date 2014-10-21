@@ -5,6 +5,17 @@ class User
     results = QuoraDatabase.instance.execute('SELECT * FROM users')
     results.map { |result| User.new(result) }
   end
+  
+  def self.find_by_id user_id
+    results = QuoraDatabase.instance.execute(<<-SQL, user_id)
+      SELECT *
+      FROM users
+      WHERE id = (?)
+    
+    SQL
+    #results["id"] = results["id"].to_i
+    User.new(results[0])
+  end
     
   attr_accessor :id, :fname, :lname
   
@@ -32,6 +43,6 @@ class User
 end
 
 bob = User.new({'fname' => 'bob', 'lname' => 'the slob'})
-bob.create
-bob.create
+ bob.create
 p User.all
+p User.find_by_id(1)
