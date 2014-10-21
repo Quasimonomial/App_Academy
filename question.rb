@@ -1,5 +1,3 @@
-require_relative 'quoradb.rb'
-
 class Question
   def self.all
     results = QuoraDatabase.instance.execute('SELECT * FROM questions')
@@ -65,9 +63,3 @@ class Question
   end
     
 end
-
-question = Question.new({'title' => 'DOes this work???', 'body' => 'I need to know.', 'author_id' => 4})
-  
-question.create
-p Question.all
-p Question.find_by_id(1)

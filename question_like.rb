@@ -1,5 +1,3 @@
-require_relative 'quoradb.rb'
-
 class QuestionLike
   def self.all
     results = QuoraDatabase.instance.execute('SELECT * FROM question_likes')

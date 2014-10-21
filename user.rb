@@ -1,5 +1,3 @@
-require_relative 'quoradb.rb'
-
 class User
   def self.all
     results = QuoraDatabase.instance.execute('SELECT * FROM users')
@@ -60,8 +58,8 @@ class User
     @id = QuoraDatabase.instance.last_insert_row_id
   end
   
+  def followed_questions
+    QuestionFollower.followed_question_for_user_id(id)
+  end
+  
 end
-
-bob = User.find_by_id(1)
-
-p bob.authored_replies

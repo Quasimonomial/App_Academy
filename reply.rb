@@ -1,5 +1,3 @@
-require_relative 'quoradb.rb'
-
 class Reply
   def self.all
     results = QuoraDatabase.instance.execute('SELECT * FROM replies')
@@ -88,14 +86,6 @@ class Reply
   
 end
 
-reply = Reply.new({'question_id' => 1, 'parent_id' => nil, 'body' => 'yep lloks like it werx', 'author_id' => '1'})
-  
-
-p Reply.all
-p Reply.find_by_id(1)
-      
-  
-  
   
   
   
