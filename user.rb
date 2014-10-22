@@ -35,6 +35,27 @@ class User
     @lname = user_hash['lname']
   end
   
+  def average_karma
+    results = QuoraDatabase.instance.execute(<<-SQL, id)
+    SELECT COUNT(user_id)
+    FROM question_likes 
+    JOIN question_query ON id = question_id
+    (SELECT questions.id
+    FROM questions 
+    LEFT OUTER JOIN question_likes ON id = question_id
+    WHERE question.author_id = ( ? )
+    AS question_query)
+    
+    SQL
+    
+    #     SELECT COUNT(user_id)
+    # FROM question_likes
+    # WHERE question_id = (?)
+    # GROUP BY question_id
+
+    
+  end
+  
   def authored_questions
     Question.find_by_author_id(id)
   end
