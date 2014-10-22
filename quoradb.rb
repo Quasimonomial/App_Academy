@@ -35,10 +35,12 @@ follower1 = QuestionFollower.new({'question_id' => 2, 'follower_id' => 1})
 follower2 = QuestionFollower.new({'question_id' => 2, 'follower_id' => 2})
 follower3 = QuestionFollower.new({'question_id' => 2, 'follower_id' => 3})
 
+
+
 p QuestionFollower.most_followed_questions(2)
-#p QuestionFollower.followed_questions_for_user_id(4)
-# puts "FOLLOWED QUESTIONS FOR USER 4"
-# p QuestionFollower.followed_questions_for_user_id(1)
+p QuestionFollower.followed_questions_for_user_id(4)
+puts "FOLLOWED QUESTIONS FOR USER 4"
+ p QuestionFollower.followers_for_question_id(1)
 
 
 

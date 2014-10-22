@@ -25,6 +25,10 @@ class Question
     results.map { |result| Question.new(result) }
   end
   
+  def self.most_followed(n)
+    QuestionFollower.most_followed_questions(n)
+  end
+  
   attr_accessor :id, :title, :body, :author_id
   
   def initialize(question_hash = {})
