@@ -31,16 +31,19 @@ p QuestionLike.all
 
 #bob = User.new()
 #question = Question.new()
-follower1 = QuestionFollower.new({'question_id' => 2, 'follower_id' => 1})
-follower2 = QuestionFollower.new({'question_id' => 2, 'follower_id' => 2})
-follower3 = QuestionFollower.new({'question_id' => 2, 'follower_id' => 3})
+liker1 = QuestionLike.new({'question_id' => 1, 'user_id' => 1})
+liker2 = QuestionLike.new({'question_id' => 1, 'user_id' => 2})
+liker3 = QuestionLike.new({'question_id' => 1, 'user_id' => 3})
+liker4 = QuestionLike.new({'question_id' => 2, 'user_id' => 3})
 
 
-
-p QuestionFollower.most_followed_questions(2)
-p QuestionFollower.followed_questions_for_user_id(4)
-puts "FOLLOWED QUESTIONS FOR USER 4"
- p QuestionFollower.followers_for_question_id(1)
-
-
-
+p QuestionLike.num_likes_for_question_id(1)
+p QuestionLike.likers_for_question_id(1)
+puts
+p "moar things"
+puts
+QuestionLike.liked_questions_for_user_id(3).each do |relationship|
+  p relationship
+end
+puts "I'm sure this will work"
+p User.all[2].liked_questions

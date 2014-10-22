@@ -56,10 +56,10 @@ class QuestionFollower
     @follower_id = question_follower_hash['follower_id']
   end
   
-  #def == other_questionFollower
-   # question_id == other_questionFollower.question_id && 
-    #  follower_id == other_questionFollower.follower_id
-    #end
+  def == other_questionFollower
+    question_id == other_questionFollower.question_id && 
+    follower_id == other_questionFollower.follower_id
+  end
   
   def create
     if QuestionFollower.all.include?(QuestionFollower.new({"question_id" =>               question_id, "follower_id" => follower_id}))
